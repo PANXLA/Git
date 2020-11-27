@@ -12,7 +12,7 @@ import com.pojo.Cars;
 import com.pojo.User;
 import com.pojo.Users;
 
-@Service("carsService")
+@Service("carsServicepxl")
 public class CarService {
 	@Resource
 	private CarsMapper dao;
