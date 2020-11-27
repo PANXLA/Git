@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>提交信息</title>
+<link rel="stylesheet" href="./layui/css/layui.css" media="all">
+</head>
+<body>
+<form class="layui-form" action="users/adduser.do" method="POST" enctype="multipart/form-data"> <!-- 提示：如果你不想用form，你可以换成div等任何一个普通元素 -->
+    <div class="layui-form-item">
+    <label class="layui-form-label">用户名</label>
+    <div class="layui-input-block">
+      <input type="text" name="Username" placeholder="请输入" autocomplete="off" class="layui-input" lay-verify="required">
+    </div>
+  </div>
+    <div class="layui-form-item">
+    <label class="layui-form-label">姓名</label>
+    <div class="layui-input-block">
+      <input type="text" name="RealName" placeholder="请输入" autocomplete="off" class="layui-input" lay-verify="required">
+    </div>
+  </div>
+  <div class="layui-form-item">
+    <label class="layui-form-label">密码</label>
+    <div class="layui-input-block">
+      <input type="text" name="PassWord" placeholder="请输入" autocomplete="off" class="layui-input" lay-verify="required">
+    </div>
+  </div>
+  <div class="layui-form-item">
+    <label class="layui-form-label">下拉选择框</label>
+    <div class="layui-input-block">
+      <select name="Gender" lay-filter="aihao">
+        <option value="男">男</option>
+        <option value="女">女</option>
+      </select>
+    </div>
+  </div>
+  <div class="layui-form-item">
+    <label class="layui-form-label">民族</label>
+    <div class="layui-input-block">
+      <input type="text" name="nation" placeholder="请输入" autocomplete="off" class="layui-input" lay-verify="required">
+    </div>
+  </div>
+  <div class="layui-form-item">
+    <label class="layui-form-label">年龄</label>
+    <div class="layui-input-block">
+      <input type="text" name="age" placeholder="请输入" autocomplete="off" class="layui-input" lay-verify="required|number">
+    </div>
+  </div>
+  <div class="layui-form-item">
+    <label class="layui-form-label">身份证号码</label>
+    <div class="layui-input-block">
+      <input type="text" name="Identity" placeholder="请输入" autocomplete="off" class="layui-input" lay-verify="required|identity">
+    </div>
+  </div>
+  <div class="layui-form-item">
+    <label class="layui-form-label">电话</label>
+    <div class="layui-input-block">
+      <input type="text" name="Tel" placeholder="请输入" autocomplete="off" class="layui-input" lay-verify="required|phone|number">
+    </div>
+  </div>
+  <div class="layui-form-item">
+    <label class="layui-form-label">职业</label>
+    <div class="layui-input-block">
+      <input type="text" name="position" placeholder="请输入" autocomplete="off" class="layui-input" lay-verify="required">
+    </div>
+  </div>
+  <div class="layui-form-item">
+    <label class="layui-form-label">住址</label>
+    <div class="layui-input-block">
+      <input type="text" name="Address" placeholder="请输入" autocomplete="off" class="layui-input" lay-verify="required">
+    </div>
+  </div>
+  <div class="layui-form-item">
+    <label class="layui-form-label">驾驶信息</label>
+    <div class="layui-input-block">
+      <input type="text" name="drivinfo" placeholder="请输入" autocomplete="off" class="layui-input" lay-verify="required">
+    </div>
+  </div>
+  <div class="layui-form-item">
+    <label class="layui-form-label">驾龄</label>
+    <div class="layui-input-block">
+      <input type="text" name="drivage" placeholder="请输入" autocomplete="off" class="layui-input" lay-verify="required|number">
+    </div>
+  </div>
+  <div class="layui-form-item">
+    <label class="layui-form-label">身份证</label>
+    <div class="layui-input-block">
+      <input type="file" name="idimag" placeholder="请输入" autocomplete="off" class="layui-input" lay-verify="required">
+    </div>
+  </div>
+  <div class="layui-form-item">
+    <label class="layui-form-label">驾驶证</label>
+    <div class="layui-input-block">
+      <input type="file" name="drivimag" placeholder="请输入" autocomplete="off" class="layui-input" lay-verify="required">
+    </div>
+  </div>
+ <!--  <div class="layui-form-item layui-form-text">
+    <label class="layui-form-label">请填写个人描述</label>
+    <div class="layui-input-block">
+      <textarea placeholder="请输入内容" class="layui-textarea"></textarea>
+    </div>
+  </div> -->
+  <div class="layui-form-item">
+    <div class="layui-input-block">
+      <button class="layui-btn" lay-submit lay-filter="*">立即提交</button>
+      <button type="reset" class="layui-btn layui-btn-primary">重置</button>
+    </div>
+  </div>
+  <!-- 更多表单结构排版请移步文档左侧【页面元素-表单】一项阅览 -->
+</form>
+<script src="./layui/layui.all.js"></script>
+<script>
+layui.use('form', function(){
+  var form = layui.form;
+  form.on('submit(formDemo)', function(data){
+    layer.msg(JSON.stringify(data.field));
+    return false;
+  });
+});
+  
+  //各种基于事件的操作，下面会有进一步介绍
+</script>
+</body>
+</html>

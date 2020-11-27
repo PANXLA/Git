@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+<head>
+<script src="./layui/layui.all.js"></script>
+<script src="./js/jquery-1.10.2.js"></script>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+<script>
+var url = window.location.href;
+id = url.substring(url.lastIndexOf('=')+1);
+$.ajax({
+              url: "users/findbyid.do",
+              type: "POST",
+              data:{"Id":id},
+              dataType: "json",
+              success: function(data){
+				 // alert(data.idimag);
+				  //document.write("<img src='/image/'+data.idimag' height='' weight='' alt='' />");
+				  //alert("<img src='\\image\\"+data.idimag+"' height='' weight='' alt='' />");
+				  //alert("' height='' weight='' alt='' />");
+				  document.write("<img src='\\image\\"+data.idimag+"' height='' weight='' alt='' />");
+				  document.write("<img src='\\image\\"+data.drivimag+"' height='' weight='' alt='' />");
+                  /* if(data.state==1){
+                      obj.del();
+                      layer.close(index);
+                      layer.msg("删除成功", {icon: 6});
+                  }else{
+                      layer.msg("删除失败", {icon: 5});
+                  } */
+              }
+
+          });
+</script>
+</body>
+</html>

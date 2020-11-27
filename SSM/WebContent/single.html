@@ -1,0 +1,108 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<title>Single</title>
+<link href="/SSM/css/style.css" rel="stylesheet" type="text/css" media="all" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link href='https://fonts.googleapis.com/css?family=Playball' rel='stylesheet' type='text/css'>   
+<script src="/SSM/js/jquery.min.js"></script>
+<script src="/SSM/js/jquery-2.1.4.min.js" type="text/javascript"></script>
+<script src="/SSM/js/script.js" type="text/javascript"></script>
+<script src="/SSM/js/superfish.js"></script>
+</head>
+<body>
+<div class="header-bg">
+	<div class="wrap"> 
+		<div class="h-bg">
+			<div class="total">
+				<div class="header">
+					<div class="clear"></div> 
+					<div class="header-bot">
+						<div class="logo">
+							<a href="index.html"><img src="/SSM/images/logo.png" alt=""/></a>
+						</div>
+					<div class="clear"></div> 
+				</div>		
+		</div>	
+		<div class="menu"> 	
+			<div class="top-nav"> 
+					<ul>
+						<li class="active"><a href="backindex.do">Home</a></li>
+					</ul>
+					<div class="clear"></div> 
+				</div>
+		</div>
+		<div class="banner-top">
+			<div class="header-bottom">
+				 <div class="header_bottom_right_images">
+				 	<div class="about_wrapper"><h1>车辆详细信息</h1>
+					</div>
+				     	
+		  			<div class="about-group">
+		  			<div class="about-top">	
+						<div class="grid images_3_of_1">
+							<img id="car" src="/SSM/images/pic7.jpg" alt=""/>
+						</div>
+						<div class="grid span_2_of_3">
+							<h3>Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh</h3>
+							<h5>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.</h5>
+							<h6>白班:250&nbsp;&nbsp;&nbsp;&nbsp;夜班:200</h6>
+							<h6>AM5点-PM1点:180&nbsp;&nbsp;&nbsp;&nbsp;PM1点-PM9点:230&nbsp;&nbsp;&nbsp;&nbsp;PM9点-AM5点:150</h6>
+							<h4>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure.</h4>
+						</div><div class="clear"></div> 
+						
+					</div>
+			   <p class="about-para">Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat.aliquam erat vol.</p><div class="clear"></div>
+			   <div class="links">
+		  				<ul>
+		  					<li><img src="/SSM/images/blog-icon1.png" title="date"><span id="buytime">june 14, 2013</span></li>
+		  					<li><img src="/SSM/images/blog-icon2.png" title="Insurainfo"><span id="Insurainfo" >Insurainfo</span></li>
+		  					<li><img src="/SSM/images/blog-icon3.png" title="Weihuinfo"><span id="Weihuinfo">Weihuinfo</span></li>
+		  					<li><img src="/SSM/images/blog-icon4.png" title="Weizhanginfo"><span id="Weizhanginfo">Weizhanginfo</span></li>
+		  					<li><img src="/SSM/images/blog-icon5.png" title="permalink"><span>permalink</span></li>
+		  				</ul>
+		  		</div>
+	</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<script>
+var url = window.location.href;
+id = url.substring(url.lastIndexOf('=')+1);
+var home ;
+$.ajax({
+    url:"queryById.do",
+    type:'post',
+    async:false,
+    data:{"Id":id},
+    dataType:'json',
+    success:function(data){
+        	   home = $(".header-bottom");
+	      	   $(home).each(function(index){
+	      		 var _this = $(this);
+	      		_this.find("#car").attr("src",'/image/'+data.carimag);
+	      		_this.find("h3").text(data.cartype);
+	      		_this.find("h5").text(data.color);
+	      		//_this.find("h6").text("出租价格："+data.rentprice);
+	      		_this.find("h4").text("车牌号："+data.carnumber);
+	      		_this.find(".about-para").text(data.description);
+	      		//alert("buy:"+data.buyTime);
+	      		_this.find("#buytime").text("购买时间："+data.buyTime);
+	      		_this.find("#Insurainfo").text("保险信息："+data.insurainfo);
+	      		_this.find("#Weihuinfo").text("维护信息："+data.weihuinfo);
+	      		_this.find("#Weizhanginfo").text("违章信息："+data.weizhanginfo);
+      	  });   
+    }
+});
+</script>
+</body>
+</html>
+
+    	
+    	
+            

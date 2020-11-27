@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>提交信息</title>
+<link rel="stylesheet" href="/SSM/layui/css/layui.css" media="all">
+</head>
+<body>
+<form class="layui-form" action="car/addCarInfo.do" method="POST" enctype="multipart/form-data"> <!-- 提示：如果你不想用form，你可以换成div等任何一个普通元素 -->
+  <div class="layui-form-item">
+    <label class="layui-form-label">车牌号</label>
+    <div class="layui-input-block">
+      <input type="text" name="CarNumber" placeholder="请输入" autocomplete="off" class="layui-input" lay-verify="required">
+    </div>
+  </div>
+  <div class="layui-form-item">
+    <label class="layui-form-label">车辆颜色</label>
+    <div class="layui-input-block">
+      <input type="text" name="Color" placeholder="请输入" autocomplete="off" class="layui-input" lay-verify="required">
+    </div>
+  </div>
+  <div class="layui-form-item">
+    <label class="layui-form-label">车辆类型</label>
+    <div class="layui-input-block">
+      <input type="text" name="CarType" placeholder="请输入" autocomplete="off" class="layui-input" lay-verify="required">
+    </div>
+  </div>
+  <div class="layui-form-item">
+    <label class="layui-form-label">车辆价格</label>
+    <div class="layui-input-block">
+      <input type="text" name="Price" placeholder="请输入" autocomplete="off" class="layui-input" lay-verify="required|number">
+    </div>
+  </div>
+  <!-- <div class="layui-form-item">
+    <label class="layui-form-label">出租价格</label>
+    <div class="layui-input-block">
+      <input type="text" name="RentPrice" placeholder="请输入" autocomplete="off" class="layui-input" lay-verify="required|number">
+    </div>
+  </div> -->
+  <div class="layui-form-item">
+    <label class="layui-form-label">发动机型号</label>
+    <div class="layui-input-block">
+      <input type="text" name="Description" placeholder="请输入" autocomplete="off" class="layui-input">
+    </div>
+  </div>
+  <div class="layui-form-item">
+    <label class="layui-form-label">购买时间</label>
+    <div class="layui-input-block">
+      <input type="text" name="buyTime" id="test1" class="layui-input">
+    </div>
+  </div>
+  <div class="layui-form-item">
+    <label class="layui-form-label">保险信息</label>
+    <div class="layui-input-block">
+      <input type="text" name="insurainfo" placeholder="请输入" autocomplete="off" class="layui-input" lay-verify="required">
+    </div>
+  </div>
+  <div class="layui-form-item">
+    <label class="layui-form-label">维护信息</label>
+    <div class="layui-input-block">
+      <input type="text" name="weihuinfo" placeholder="请输入" autocomplete="off" class="layui-input" lay-verify="required">
+    </div>
+  </div>
+  <div class="layui-form-item">
+    <label class="layui-form-label">违章信息</label>
+    <div class="layui-input-block">
+      <input type="text" name="weizhanginfo" placeholder="请输入" autocomplete="off" class="layui-input" lay-verify="required">
+    </div>
+  </div>
+   <div class="layui-form-item">
+    <label class="layui-form-label">车辆照片</label>
+    <div class="layui-input-block">
+      <input type="file" name="carimag" placeholder="请输入" autocomplete="off" class="layui-input" lay-verify="required">
+    </div>
+  </div>
+<!-- sdasd 
+  <div class="layui-form-item">
+    <label class="layui-form-label">时间段选择</label>
+    <div class="layui-input-block">
+      <select name="timeRange" lay-filter="aihao">
+        <option value="夜班">夜班</option>
+        <option value="白班">白班</option>
+        <option value="AM5点-PM1点">AM5点-PM1点</option>
+        <option value="PM1点-PM9点">PM1点-PM9点</option>
+        <option value="PM9点-AM5点">PM9点-AM5点</option>
+      </select>
+    </div>
+  </div>
+  -->
+  <div class="layui-form-item">
+    <div class="layui-input-block">
+      <button class="layui-btn" lay-submit lay-filter="*">立即提交</button>
+      <button type="reset" class="layui-btn layui-btn-primary">重置</button>
+    </div>
+  </div>
+  <!-- 更多表单结构排版请移步文档左侧【页面元素-表单】一项阅览 -->
+</form>
+<script src="/SSM/laydate/laydate.js">
+
+</script>
+<script src="/SSM/layui/layui.all.js">
+</script>
+
+<script>
+layui.use('form', function(){
+  var form = layui.form;
+  form.on('submit(formDemo)', function(data){
+    layer.msg(JSON.stringify(data.field));
+    return false;
+  });
+  laydate.render({
+	  elem: '#test1' //指定元素
+	});
+});
+
+
+
+  
+  //各种基于事件的操作，下面会有进一步介绍
+</script>
+</body>
+</html>

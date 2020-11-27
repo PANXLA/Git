@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>table模块快速使用</title>
+  <link rel="stylesheet" href="./layui/css/layui.css" media="all">
+  <script src="./layui/layui.all.js"></script>
+  <script src="./js/jquery-1.10.2.js"></script>
+</head>
+<body>
+ 
+<table id="demo" lay-filter="test"></table>
+<div class="layui-btn-container">
+  <button class="layui-btn" onclick="backhome()">返回首页</button> 
+  <button class="layui-btn" onclick="reloaddel()">刷新当前页面</button> 
+</div>
+ 
+
+<script>
+layui.use('table', function(){
+  var table = layui.table;
+  
+  //第一个实例
+  table.render({
+	toolbar:'#barDemo' 
+    ,elem: '#demo'
+    ,height: 312
+    ,url: 'users/userinfo.do' //数据接口
+    ,page: true //开启分页
+    ,cols: [[ //表头
+       {field: 'username', title: '用户名', width:80, sort: true, fixed: 'left',edit: 'text'}
+      ,{field: 'password', title: '用户密码', width:80,edit: 'text'}
+      ,{field: 'address', title: '住址', width:80, sort: true,edit: 'text'}
+      ,{field: 'position', title: '职业', width:80,edit: 'text'} 
+      ,{field: 'tel', title: '电话号码', width: 177,edit: 'text'}
+      ,{field: 'identity', title: '身份证号码', width: 80, sort: true,edit: 'text'}
+      ,{field: 'realname', title: '司机姓名', width: 80,edit: 'text'}
+      ,{field: 'nation', title: '民族', width: 80,edit: 'text'}
+      ,{field: 'age', title: '年龄', width: 80,edit: 'text'}
+      ,{field: 'drivage', title: '驾龄', width: 80,edit: 'text'}
+      ,{field: 'gender', title: '性别', width: 80,edit: 'text'}
+      ,{field: 'caoZuo', title: '操作', width: 155,toolbar: '#barDemo',edit: 'text'}
+    ]]
+  });
+  /* table.on('toolbar(test)', function(obj){
+	  var checkStatus = table.checkStatus(obj.config.id);
+	  switch(obj.event){
+	    case 'add':
+	      layer.msg('添加');
+	    break;
+	    case 'delete':
+	      layer.msg('删除');
+	    break;
+	    case 'update':
+	      layer.msg('编辑');
+	    break;
+	  };
+	}); */
+  
+  table.on('tool(test)', function(obj){ //注：tool是工具条事件名，test是table原始容器的属性 lay-filter="对应的值"
+	  var value = obj.value;
+     
+	  var field = obj.field;
+      
+	  var data = obj.data; //获得当前行数据
+	  var Id=data['id'];
+	  var layEvent = obj.event; //获得 lay-event 对应的值（也可以是表头的 event 参数对应的值）
+	  var tr = obj.tr; //获得当前行 tr 的DOM对象
+	  //$ = layui.jquery;
+	  if(layEvent === 'detail'){ //查看
+	    //do somehing 
+		 // url: 'users/findAll.do'
+		      $.ajax({
+	              url: "users/updateuser.do",
+	              type: "POST",
+	              data:{"username":data['username'],"password":data['password'],"address":data['address'],"position":data['position'],"tel":data['tel'],
+	            	  "identity":data['identity'],"realname":data['realname'],"nation":data['nation'],"age":data['age'],"drivage":data['drivage'],"gender":data['gender']
+	              },
+	              dataType: "json",
+	              success: function(data){
+					  if(data.result=="suc")
+						  {
+	                  alert("修改成功");
+	                  location.reload();
+						  }
+	              }
+
+	          });
+	         
+	  } else if(layEvent === 'del'){ //删除
+	    layer.confirm('真的删除行么', function(index){
+	      obj.del(); //删除对应行（tr）的DOM结构，并更新缓存
+	      layer.close(index);
+	      //向服务端发送删除指令
+	      //var json=eval('('+JSON.stringify(data)+')');//String转json
+          //log(json['storeId'])
+	      $.ajax({
+              url: "users/delById.do",
+              type: "POST",
+              data:{"Id":data['Id']
+              },
+              dataType: "json",
+              success: function(data){
+
+                  if(data.state==1){
+                      obj.del();
+                      layer.close(index);
+                      layer.msg("删除成功", {icon: 6});
+                  }else{
+                      layer.msg("删除失败", {icon: 5});
+                  }
+              }
+
+          });
+         
+	    });
+	  } else if(layEvent === 'edit'){ //编辑
+	    //do something
+	    
+	    //同步更新缓存对应的值
+	    obj.update({
+	      username: '123'
+	      ,title: 'xxx'
+	    });
+	  }
+	});
+  
+});
+
+
+
+function backhome()
+{
+	window.history.back(-1);
+	}
+function reloaddel()
+{
+	location.reload();		
+}
+ 
+	
+</script>
+
+<script type="text/html" id="barDemo">
+  <a class="layui-btn layui-btn-xs" lay-event="detail">保存修改</a>
+</script>
+
+
+
+</body>
+</html>

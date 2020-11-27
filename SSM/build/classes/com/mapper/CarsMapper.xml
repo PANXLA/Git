@@ -1,0 +1,431 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.mapper.CarsMapper" >
+  <resultMap id="BaseResultMap" type="com.pojo.Cars" >
+    <id column="Id" property="id" jdbcType="INTEGER" />
+    <result column="CarNumber" property="carnumber" jdbcType="VARCHAR" />
+    <result column="Color" property="color" jdbcType="VARCHAR" />
+    <result column="CarType" property="cartype" jdbcType="VARCHAR" />
+    <result column="Price" property="price" jdbcType="DOUBLE" />
+    <result column="Deposit" property="deposit" jdbcType="DOUBLE" />
+    <result column="RentPrice" property="rentprice" jdbcType="DOUBLE" />
+    <result column="isRenting" property="isrenting" jdbcType="CHAR" />
+    <result column="Description" property="description" jdbcType="VARCHAR" />
+    <result column="buy_time" property="buyTime" jdbcType="DATE" />
+    <result column="carimag" property="carimag" jdbcType="VARCHAR" />
+    <result column="insurainfo" property="insurainfo" jdbcType="VARCHAR" />
+    <result column="weihuinfo" property="weihuinfo" jdbcType="VARCHAR" />
+    <result column="weizhanginfo" property="weizhanginfo" jdbcType="VARCHAR" />
+    <result column="timerange" property="timerange" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    Id, CarNumber, Color, CarType, Price, Deposit, RentPrice, isRenting, Description, 
+    buy_time, carimag, insurainfo, weihuinfo, weizhanginfo, timerange
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.pojo.CarsExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from cars
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from cars
+    where Id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from cars
+    where Id = #{id,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.pojo.CarsExample" >
+    delete from cars
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.pojo.Cars" >
+    insert into cars (Id, CarNumber, Color, 
+      CarType, Price, Deposit, 
+      RentPrice, isRenting, Description, 
+      buy_time, carimag, insurainfo, 
+      weihuinfo, weizhanginfo, timerange
+      )
+    values (#{id,jdbcType=INTEGER}, #{carnumber,jdbcType=VARCHAR}, #{color,jdbcType=VARCHAR}, 
+      #{cartype,jdbcType=VARCHAR}, #{price,jdbcType=DOUBLE}, #{deposit,jdbcType=DOUBLE}, 
+      #{rentprice,jdbcType=DOUBLE}, #{isrenting,jdbcType=CHAR}, #{description,jdbcType=VARCHAR}, 
+      #{buyTime,jdbcType=DATE}, #{carimag,jdbcType=VARCHAR}, #{insurainfo,jdbcType=VARCHAR}, 
+      #{weihuinfo,jdbcType=VARCHAR}, #{weizhanginfo,jdbcType=VARCHAR}, #{timerange,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.pojo.Cars" >
+    insert into cars
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        Id,
+      </if>
+      <if test="carnumber != null" >
+        CarNumber,
+      </if>
+      <if test="color != null" >
+        Color,
+      </if>
+      <if test="cartype != null" >
+        CarType,
+      </if>
+      <if test="price != null" >
+        Price,
+      </if>
+      <if test="deposit != null" >
+        Deposit,
+      </if>
+      <if test="rentprice != null" >
+        RentPrice,
+      </if>
+      <if test="isrenting != null" >
+        isRenting,
+      </if>
+      <if test="description != null" >
+        Description,
+      </if>
+      <if test="buyTime != null" >
+        buy_time,
+      </if>
+      <if test="carimag != null" >
+        carimag,
+      </if>
+      <if test="insurainfo != null" >
+        insurainfo,
+      </if>
+      <if test="weihuinfo != null" >
+        weihuinfo,
+      </if>
+      <if test="weizhanginfo != null" >
+        weizhanginfo,
+      </if>
+      <if test="timerange != null" >
+        timerange,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="carnumber != null" >
+        #{carnumber,jdbcType=VARCHAR},
+      </if>
+      <if test="color != null" >
+        #{color,jdbcType=VARCHAR},
+      </if>
+      <if test="cartype != null" >
+        #{cartype,jdbcType=VARCHAR},
+      </if>
+      <if test="price != null" >
+        #{price,jdbcType=DOUBLE},
+      </if>
+      <if test="deposit != null" >
+        #{deposit,jdbcType=DOUBLE},
+      </if>
+      <if test="rentprice != null" >
+        #{rentprice,jdbcType=DOUBLE},
+      </if>
+      <if test="isrenting != null" >
+        #{isrenting,jdbcType=CHAR},
+      </if>
+      <if test="description != null" >
+        #{description,jdbcType=VARCHAR},
+      </if>
+      <if test="buyTime != null" >
+        #{buyTime,jdbcType=DATE},
+      </if>
+      <if test="carimag != null" >
+        #{carimag,jdbcType=VARCHAR},
+      </if>
+      <if test="insurainfo != null" >
+        #{insurainfo,jdbcType=VARCHAR},
+      </if>
+      <if test="weihuinfo != null" >
+        #{weihuinfo,jdbcType=VARCHAR},
+      </if>
+      <if test="weizhanginfo != null" >
+        #{weizhanginfo,jdbcType=VARCHAR},
+      </if>
+      <if test="timerange != null" >
+        #{timerange,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.pojo.CarsExample" resultType="java.lang.Integer" >
+    select count(*) from cars
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update cars
+    <set >
+      <if test="record.id != null" >
+        Id = #{record.id,jdbcType=INTEGER},
+      </if>
+      <if test="record.carnumber != null" >
+        CarNumber = #{record.carnumber,jdbcType=VARCHAR},
+      </if>
+      <if test="record.color != null" >
+        Color = #{record.color,jdbcType=VARCHAR},
+      </if>
+      <if test="record.cartype != null" >
+        CarType = #{record.cartype,jdbcType=VARCHAR},
+      </if>
+      <if test="record.price != null" >
+        Price = #{record.price,jdbcType=DOUBLE},
+      </if>
+      <if test="record.deposit != null" >
+        Deposit = #{record.deposit,jdbcType=DOUBLE},
+      </if>
+      <if test="record.rentprice != null" >
+        RentPrice = #{record.rentprice,jdbcType=DOUBLE},
+      </if>
+      <if test="record.isrenting != null" >
+        isRenting = #{record.isrenting,jdbcType=CHAR},
+      </if>
+      <if test="record.description != null" >
+        Description = #{record.description,jdbcType=VARCHAR},
+      </if>
+      <if test="record.buyTime != null" >
+        buy_time = #{record.buyTime,jdbcType=DATE},
+      </if>
+      <if test="record.carimag != null" >
+        carimag = #{record.carimag,jdbcType=VARCHAR},
+      </if>
+      <if test="record.insurainfo != null" >
+        insurainfo = #{record.insurainfo,jdbcType=VARCHAR},
+      </if>
+      <if test="record.weihuinfo != null" >
+        weihuinfo = #{record.weihuinfo,jdbcType=VARCHAR},
+      </if>
+      <if test="record.weizhanginfo != null" >
+        weizhanginfo = #{record.weizhanginfo,jdbcType=VARCHAR},
+      </if>
+      <if test="record.timerange != null" >
+        timerange = #{record.timerange,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update cars
+    set Id = #{record.id,jdbcType=INTEGER},
+      CarNumber = #{record.carnumber,jdbcType=VARCHAR},
+      Color = #{record.color,jdbcType=VARCHAR},
+      CarType = #{record.cartype,jdbcType=VARCHAR},
+      Price = #{record.price,jdbcType=DOUBLE},
+      Deposit = #{record.deposit,jdbcType=DOUBLE},
+      RentPrice = #{record.rentprice,jdbcType=DOUBLE},
+      isRenting = #{record.isrenting,jdbcType=CHAR},
+      Description = #{record.description,jdbcType=VARCHAR},
+      buy_time = #{record.buyTime,jdbcType=DATE},
+      carimag = #{record.carimag,jdbcType=VARCHAR},
+      insurainfo = #{record.insurainfo,jdbcType=VARCHAR},
+      weihuinfo = #{record.weihuinfo,jdbcType=VARCHAR},
+      weizhanginfo = #{record.weizhanginfo,jdbcType=VARCHAR},
+      timerange = #{record.timerange,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.pojo.Cars" >
+    update cars
+    <set >
+      <if test="carnumber != null" >
+        CarNumber = #{carnumber,jdbcType=VARCHAR},
+      </if>
+      <if test="color != null" >
+        Color = #{color,jdbcType=VARCHAR},
+      </if>
+      <if test="cartype != null" >
+        CarType = #{cartype,jdbcType=VARCHAR},
+      </if>
+      <if test="price != null" >
+        Price = #{price,jdbcType=DOUBLE},
+      </if>
+      <if test="deposit != null" >
+        Deposit = #{deposit,jdbcType=DOUBLE},
+      </if>
+      <if test="rentprice != null" >
+        RentPrice = #{rentprice,jdbcType=DOUBLE},
+      </if>
+      <if test="isrenting != null" >
+        isRenting = #{isrenting,jdbcType=CHAR},
+      </if>
+      <if test="description != null" >
+        Description = #{description,jdbcType=VARCHAR},
+      </if>
+      <if test="buyTime != null" >
+        buy_time = #{buyTime,jdbcType=DATE},
+      </if>
+      <if test="carimag != null" >
+        carimag = #{carimag,jdbcType=VARCHAR},
+      </if>
+      <if test="insurainfo != null" >
+        insurainfo = #{insurainfo,jdbcType=VARCHAR},
+      </if>
+      <if test="weihuinfo != null" >
+        weihuinfo = #{weihuinfo,jdbcType=VARCHAR},
+      </if>
+      <if test="weizhanginfo != null" >
+        weizhanginfo = #{weizhanginfo,jdbcType=VARCHAR},
+      </if>
+      <if test="timerange != null" >
+        timerange = #{timerange,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where Id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.pojo.Cars" >
+    update cars
+    set CarNumber = #{carnumber,jdbcType=VARCHAR},
+      Color = #{color,jdbcType=VARCHAR},
+      CarType = #{cartype,jdbcType=VARCHAR},
+      Price = #{price,jdbcType=DOUBLE},
+      Deposit = #{deposit,jdbcType=DOUBLE},
+      RentPrice = #{rentprice,jdbcType=DOUBLE},
+      isRenting = #{isrenting,jdbcType=CHAR},
+      Description = #{description,jdbcType=VARCHAR},
+      buy_time = #{buyTime,jdbcType=DATE},
+      carimag = #{carimag,jdbcType=VARCHAR},
+      insurainfo = #{insurainfo,jdbcType=VARCHAR},
+      weihuinfo = #{weihuinfo,jdbcType=VARCHAR},
+      weizhanginfo = #{weizhanginfo,jdbcType=VARCHAR},
+      timerange = #{timerange,jdbcType=VARCHAR}
+    where Id = #{id,jdbcType=INTEGER}
+  </update>
+  
+  <select  id="selectAll" resultType="java.util.Map">
+  select *from cars  
+  </select>
+   <insert id="insertCar" parameterType="com.pojo.Cars" >
+    insert into cars (CarNumber, Color, 
+      CarType, Price, Deposit, 
+      RentPrice, isRenting, Description, 
+      buy_time, carimag, insurainfo, 
+      weihuinfo, weizhanginfo, timerange
+      )
+    values (#{carnumber}, #{color}, 
+      #{cartype}, #{price}, #{deposit}, 
+      #{rentprice},"未出租", #{description}, 
+      #{buyTime}, #{carimag}, #{insurainfo}, 
+      #{weihuinfo}, #{weizhanginfo}, #{timerange}
+      )
+  </insert>
+  <select id="findByPage" resultType="java.util.Map">
+		select * from cars limit #{before},#{after}
+ </select>
+ 
+ <select id="carscount" resultType="java.lang.Integer">
+		select count(*) from cars
+	</select>
+	
+	<delete id="delById" parameterType="com.pojo.Cars">
+		delete from cars
+		where Id = #{id}
+	</delete>
+	
+	<insert id="addorder"  >
+    insert into orders (userid, carid
+      )
+    values (#{userid},#{carid}
+      )
+  </insert>
+  
+  <update id="updatecar"  >
+    UPDATE cars SET isRenting="已出租" WHERE id=#{carid}
+  </update>
+  
+  <select id="rentcarinfo" resultType="java.util.Map">
+		SELECT u.Realname,u.Username,u.Identity,u.Position,c.CarType,c.Color,c.CarNumber,o.price,o.stats FROM users u,cars c,orders o WHERE o.userid=u.Id AND o.carid=c.Id;
+  </select>
+  
+  <select id="rentcarinfocount" resultType="java.lang.Integer">
+		SELECT count(*) FROM users u,cars c,orders o WHERE o.userid=u.Id AND o.carid=c.Id;
+  </select>
+  
+  <update id="addtimerange"  >
+    UPDATE orders SET stats=#{timeRange},price=#{price} WHERE userid=#{userid}
+  </update>
+  
+  <update id="updatecarstats"  >
+    UPDATE cars SET isRenting="未出租" WHERE isRenting="已出租"
+  </update>
+  
+  <select id="checkTimeRange" resultType="java.util.Map">
+	SELECT * FROM orders where carid=(select carid from  orders where userid=#{userid}) and stats IS NOT null
+  </select>
+</mapper>

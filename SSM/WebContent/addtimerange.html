@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>提交信息</title>
+<link rel="stylesheet" href="./layui/css/layui.css" media="all">
+</head>
+<body>
+<form class="layui-form" action="car/addtimerange.do" method="POST" enctype="multipart/form-data"> <!-- 提示：如果你不想用form，你可以换成div等任何一个普通元素 -->
+  <div class="layui-form-item">
+    <label class="layui-form-label">时间段选择</label>
+    <div class="layui-input-block">
+      <select name="timeRange" lay-filter="aihao">
+        <option value="夜班">夜班</option>
+        <option value="白班">白班</option>
+        <option value="AM5点-PM1点">AM5点-PM1点</option>
+        <option value="PM1点-PM9点">PM1点-PM9点</option>
+        <option value="PM9点-AM5点">PM9点-AM5点</option>
+      </select>
+    </div>
+  </div>
+  <div class="layui-input-block">
+           提示：租车类型分为两种：一种是白班夜班，每班12小时，白班早上5点-晚上5点，夜班晚上5点-当夜早上五点；
+           另一种是分三个时间段，每班8小时，早上5点-下午1点，下午1点-晚上9点，晚上9点-当夜早上5点。（不同时间段租车，价格不同，详情见出租车辆信息）
+  </div>
+  
+  <div class="layui-form-item">
+    <div class="layui-input-block">
+      <button class="layui-btn" lay-submit lay-filter="*">立即提交</button>
+      <button type="reset" class="layui-btn layui-btn-primary">重置</button>
+    </div>
+  </div>
+</form>
+<script src="./layui/layui.all.js"></script>
+<script>
+layui.use('form', function(){
+  var form = layui.form;
+  form.on('submit(formDemo)', function(data){
+    layer.msg(JSON.stringify(data.field));
+    return false;
+  });
+});
+  
+  //各种基于事件的操作，下面会有进一步介绍
+</script>
+</body>
+</html>

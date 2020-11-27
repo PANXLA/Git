@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>table模块快速使用</title>
+  <link rel="stylesheet" href="./layui/css/layui.css" media="all">
+  <script src="./layui/layui.all.js"></script>
+  <script src="./js/jquery-1.10.2.js"></script>
+</head>
+<body>
+ 
+<table id="demo" lay-filter="test"></table>
+<div class="layui-btn-container">
+  <button class="layui-btn" onclick="backhome()">返回首页</button> 
+  <button class="layui-btn" onclick="reloaddel()">刷新当前页面</button> 
+</div>
+ 
+<script>
+
+layui.use('table', function(){
+  var table = layui.table;
+  
+  //第一个实例
+  table.render({
+	toolbar:'#barDemo' 
+    ,elem: '#demo'
+    ,height: 312
+    ,url: 'car/queryAll.do' //数据接口
+    ,page: true //开启分页
+    ,cols: [[ //表头
+       {field: 'CarNumber', title: '车牌号', width:80, sort: true, fixed: 'left'}
+      ,{field: 'Color', title: '颜色', width:80}
+      ,{field: 'Price', title: '车辆价格', width:80, sort: true}
+      ,{field: 'CarType', title: '车辆类型', width:80, sort: true}
+      
+      /* ,{field: 'RentPrice', title: '出租价格', width:80}  */
+      /* ,{field: 'isRenting', title: '出租状态', width: 177,valign:'middle',formatter:function(v,r){
+    	  if(r.isRenting == '0'){
+    		  return "未出租";
+    		  }else if(r.isRenting == '1'){
+    		  return "已出租";
+    		  }else{
+    		  return "数据错误";
+    		  }
+    		  }} */
+      ,{field: 'Description', title: '发动机型号', width: 80, sort: true}
+      ,{field: 'buy_time', title: '购买时间', width: 80, sort: true}
+      ,{field: 'insurainfo', title: '保险信息', width: 80}
+      ,{field: 'weihuinfo', title: '维护信息', width: 135, sort: true}
+      ,{field: 'weizhanginfo', title: '违章信息', width: 135, sort: true}
+     /*  ,{field: 'timerange', title: '出租时间段', width: 135, sort: true}
+ */      ,{field: 'caoZuo', title: '操作', width: 155,toolbar: '#barDemo'}
+    ]]
+  });
+  /* table.on('toolbar(test)', function(obj){
+	  var checkStatus = table.checkStatus(obj.config.id);
+	  switch(obj.event){
+	    case 'add':
+	      layer.msg('添加');
+	    break;
+	    case 'delete':
+	      layer.msg('删除');
+	    break;
+	    case 'update':
+	      layer.msg('编辑');
+	    break;
+	  };
+	}); */
+  
+  table.on('tool(test)', function(obj){ //注：tool是工具条事件名，test是table原始容器的属性 lay-filter="对应的值"
+	  var data = obj.data; //获得当前行数据
+	  var Id=data['Id'];
+	  var carimag=data['carimag'];
+	  //alert(carimag);
+	  
+	  var layEvent = obj.event; //获得 lay-event 对应的值（也可以是表头的 event 参数对应的值）
+	  var tr = obj.tr; //获得当前行 tr 的DOM对象
+	  //$ = layui.jquery;
+	  if(layEvent === 'detail'){ //查看
+	    //do somehing
+		 // url: 'users/findAll.do'
+		 
+		// document.write("<img src='/image/0f3865afc32d4a22a6711e8967cbcefapic.jpg' height='' weight='' alt='' />");
+		
+		// document.write("<img src="+"C:\upload\"+carimag+" height='' weight='' alt='' />");
+	  } else if(layEvent === 'del'){ //删除
+	    layer.confirm('真的删除行么', function(index){
+	      obj.del(); //删除对应行（tr）的DOM结构，并更新缓存
+	      layer.close(index);
+	      //向服务端发送删除指令
+	      //var json=eval('('+JSON.stringify(data)+')');//String转json
+          //log(json['storeId'])
+	      $.ajax({
+              url: "car/delById.do",
+              type: "POST",
+              data:{"Id":data['Id']},
+              dataType: "json",
+              success: function(data){
+
+                  if(data.state==1){
+                      obj.del();
+                      layer.close(index);
+                      layer.msg("删除成功", {icon: 6});
+                  }else{
+                      layer.msg("删除失败", {icon: 5});
+                  }
+              }
+
+          });
+         
+	    });
+	  } else if(layEvent === 'edit'){ //编辑
+	    //do something
+	    
+	    //同步更新缓存对应的值
+	    obj.update({
+	      username: '123'
+	      ,title: 'xxx'
+	    });
+	  }
+	});
+  
+});
+
+
+
+function backhome()
+{
+	window.history.back(-1);
+	}
+function reloaddel()
+{
+	location.reload();		
+}
+ 
+	
+</script>
+
+<script type="text/html" id="barDemo">
+  <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
+</script>
+
+
+
+</body>
+</html>

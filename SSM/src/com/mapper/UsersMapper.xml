@@ -1,0 +1,473 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.mapper.UsersMapper">
+	<resultMap id="BaseResultMap" type="com.pojo.Users">
+		<id column="Id" property="id" jdbcType="INTEGER" />
+		<result column="Username" property="username" jdbcType="VARCHAR" />
+		<result column="Realname" property="realname" jdbcType="VARCHAR" />
+		<result column="PASSWORD" property="password" jdbcType="VARCHAR" />
+		<result column="Gender" property="gender" jdbcType="CHAR" />
+		<result column="userType" property="usertype" jdbcType="VARCHAR" />
+		<result column="Address" property="address" jdbcType="VARCHAR" />
+		<result column="Identity" property="identity" jdbcType="VARCHAR" />
+		<result column="Tel" property="tel" jdbcType="VARCHAR" />
+		<result column="Position" property="position" jdbcType="VARCHAR" />
+		<result column="nation" property="nation" jdbcType="VARCHAR" />
+		<result column="drivinfo" property="drivinfo" jdbcType="VARCHAR" />
+		<result column="drivage" property="drivage" jdbcType="VARCHAR" />
+		<result column="idimag" property="idimag" jdbcType="VARCHAR" />
+		<result column="drivimag" property="drivimag" jdbcType="VARCHAR" />
+		<result column="checkstate" property="checkstate" jdbcType="INTEGER" />
+		<result column="age" property="age" jdbcType="INTEGER" />
+	</resultMap>
+	<sql id="Example_Where_Clause">
+		<where>
+			<foreach collection="oredCriteria" item="criteria" separator="or">
+				<if test="criteria.valid">
+					<trim prefix="(" suffix=")" prefixOverrides="and">
+						<foreach collection="criteria.criteria" item="criterion">
+							<choose>
+								<when test="criterion.noValue">
+									and ${criterion.condition}
+								</when>
+								<when test="criterion.singleValue">
+									and ${criterion.condition} #{criterion.value}
+								</when>
+								<when test="criterion.betweenValue">
+									and ${criterion.condition} #{criterion.value} and
+									#{criterion.secondValue}
+								</when>
+								<when test="criterion.listValue">
+									and ${criterion.condition}
+									<foreach collection="criterion.value" item="listItem"
+										open="(" close=")" separator=",">
+										#{listItem}
+									</foreach>
+								</when>
+							</choose>
+						</foreach>
+					</trim>
+				</if>
+			</foreach>
+		</where>
+	</sql>
+	<sql id="Update_By_Example_Where_Clause">
+		<where>
+			<foreach collection="example.oredCriteria" item="criteria"
+				separator="or">
+				<if test="criteria.valid">
+					<trim prefix="(" suffix=")" prefixOverrides="and">
+						<foreach collection="criteria.criteria" item="criterion">
+							<choose>
+								<when test="criterion.noValue">
+									and ${criterion.condition}
+								</when>
+								<when test="criterion.singleValue">
+									and ${criterion.condition} #{criterion.value}
+								</when>
+								<when test="criterion.betweenValue">
+									and ${criterion.condition} #{criterion.value} and
+									#{criterion.secondValue}
+								</when>
+								<when test="criterion.listValue">
+									and ${criterion.condition}
+									<foreach collection="criterion.value" item="listItem"
+										open="(" close=")" separator=",">
+										#{listItem}
+									</foreach>
+								</when>
+							</choose>
+						</foreach>
+					</trim>
+				</if>
+			</foreach>
+		</where>
+	</sql>
+	<sql id="Base_Column_List">
+		Id, Username, Realname, PASSWORD, Gender, userType, Address, Identity,
+		Tel, Position,
+		nation, drivinfo, drivage, idimag, drivimag, checkstate, age
+	</sql>
+	<select id="selectByExample" resultMap="BaseResultMap"
+		parameterType="com.pojo.UsersExample">
+		select
+		<if test="distinct">
+			distinct
+		</if>
+		<include refid="Base_Column_List" />
+		from users
+		<if test="_parameter != null">
+			<include refid="Example_Where_Clause" />
+		</if>
+		<if test="orderByClause != null">
+			order by ${orderByClause}
+		</if>
+	</select>
+	<select id="selectByPrimaryKey" resultMap="BaseResultMap">
+		select *
+		from users
+		where Id = #{id}
+	</select>
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+		delete from users
+		where Id = #{id,jdbcType=INTEGER}
+	</delete>
+	<delete id="deleteByExample" parameterType="com.pojo.UsersExample">
+		delete from users
+		<if test="_parameter != null">
+			<include refid="Example_Where_Clause" />
+		</if>
+	</delete>
+	<insert id="insert" parameterType="com.pojo.Users">
+		insert into users (Id, Username, Realname,
+		PASSWORD, Gender, userType,
+		Address, Identity, Tel,
+		Position, nation, drivinfo,
+		drivage, idimag, drivimag,
+		checkstate, age)
+		values (#{id,jdbcType=INTEGER}, #{username,jdbcType=VARCHAR},
+		#{realname,jdbcType=VARCHAR},
+		#{password,jdbcType=VARCHAR}, #{gender,jdbcType=CHAR}, #{usertype,jdbcType=VARCHAR},
+		#{address,jdbcType=VARCHAR}, #{identity,jdbcType=VARCHAR},
+		#{tel,jdbcType=VARCHAR},
+		#{position,jdbcType=VARCHAR}, #{nation,jdbcType=VARCHAR}, #{drivinfo,jdbcType=VARCHAR},
+		#{drivage,jdbcType=VARCHAR}, #{idimag,jdbcType=VARCHAR},
+		#{drivimag,jdbcType=VARCHAR},
+		#{checkstate,jdbcType=INTEGER}, #{age,jdbcType=INTEGER})
+	</insert>
+	<insert id="insertSelective" parameterType="com.pojo.Users">
+		insert into users
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				Id,
+			</if>
+			<if test="username != null">
+				Username,
+			</if>
+			<if test="realname != null">
+				Realname,
+			</if>
+			<if test="password != null">
+				PASSWORD,
+			</if>
+			<if test="gender != null">
+				Gender,
+			</if>
+			<if test="usertype != null">
+				userType,
+			</if>
+			<if test="address != null">
+				Address,
+			</if>
+			<if test="identity != null">
+				Identity,
+			</if>
+			<if test="tel != null">
+				Tel,
+			</if>
+			<if test="position != null">
+				Position,
+			</if>
+			<if test="nation != null">
+				nation,
+			</if>
+			<if test="drivinfo != null">
+				drivinfo,
+			</if>
+			<if test="drivage != null">
+				drivage,
+			</if>
+			<if test="idimag != null">
+				idimag,
+			</if>
+			<if test="drivimag != null">
+				drivimag,
+			</if>
+			<if test="checkstate != null">
+				checkstate,
+			</if>
+			<if test="age != null">
+				age,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				#{id,jdbcType=INTEGER},
+			</if>
+			<if test="username != null">
+				#{username,jdbcType=VARCHAR},
+			</if>
+			<if test="realname != null">
+				#{realname,jdbcType=VARCHAR},
+			</if>
+			<if test="password != null">
+				#{password,jdbcType=VARCHAR},
+			</if>
+			<if test="gender != null">
+				#{gender,jdbcType=CHAR},
+			</if>
+			<if test="usertype != null">
+				#{usertype,jdbcType=VARCHAR},
+			</if>
+			<if test="address != null">
+				#{address,jdbcType=VARCHAR},
+			</if>
+			<if test="identity != null">
+				#{identity,jdbcType=VARCHAR},
+			</if>
+			<if test="tel != null">
+				#{tel,jdbcType=VARCHAR},
+			</if>
+			<if test="position != null">
+				#{position,jdbcType=VARCHAR},
+			</if>
+			<if test="nation != null">
+				#{nation,jdbcType=VARCHAR},
+			</if>
+			<if test="drivinfo != null">
+				#{drivinfo,jdbcType=VARCHAR},
+			</if>
+			<if test="drivage != null">
+				#{drivage,jdbcType=VARCHAR},
+			</if>
+			<if test="idimag != null">
+				#{idimag,jdbcType=VARCHAR},
+			</if>
+			<if test="drivimag != null">
+				#{drivimag,jdbcType=VARCHAR},
+			</if>
+			<if test="checkstate != null">
+				#{checkstate,jdbcType=INTEGER},
+			</if>
+			<if test="age != null">
+				#{age,jdbcType=INTEGER},
+			</if>
+		</trim>
+	</insert>
+	<select id="countByExample" parameterType="com.pojo.UsersExample"
+		resultType="java.lang.Integer">
+		select count(*) from users
+		<if test="_parameter != null">
+			<include refid="Example_Where_Clause" />
+		</if>
+	</select>
+	<update id="updateByExampleSelective" parameterType="map">
+		update users
+		<set>
+			<if test="record.id != null">
+				Id = #{record.id,jdbcType=INTEGER},
+			</if>
+			<if test="record.username != null">
+				Username = #{record.username,jdbcType=VARCHAR},
+			</if>
+			<if test="record.realname != null">
+				Realname = #{record.realname,jdbcType=VARCHAR},
+			</if>
+			<if test="record.password != null">
+				PASSWORD = #{record.password,jdbcType=VARCHAR},
+			</if>
+			<if test="record.gender != null">
+				Gender = #{record.gender,jdbcType=CHAR},
+			</if>
+			<if test="record.usertype != null">
+				userType = #{record.usertype,jdbcType=VARCHAR},
+			</if>
+			<if test="record.address != null">
+				Address = #{record.address,jdbcType=VARCHAR},
+			</if>
+			<if test="record.identity != null">
+				Identity = #{record.identity,jdbcType=VARCHAR},
+			</if>
+			<if test="record.tel != null">
+				Tel = #{record.tel,jdbcType=VARCHAR},
+			</if>
+			<if test="record.position != null">
+				Position = #{record.position,jdbcType=VARCHAR},
+			</if>
+			<if test="record.nation != null">
+				nation = #{record.nation,jdbcType=VARCHAR},
+			</if>
+			<if test="record.drivinfo != null">
+				drivinfo = #{record.drivinfo,jdbcType=VARCHAR},
+			</if>
+			<if test="record.drivage != null">
+				drivage = #{record.drivage,jdbcType=VARCHAR},
+			</if>
+			<if test="record.idimag != null">
+				idimag = #{record.idimag,jdbcType=VARCHAR},
+			</if>
+			<if test="record.drivimag != null">
+				drivimag = #{record.drivimag,jdbcType=VARCHAR},
+			</if>
+			<if test="record.checkstate != null">
+				checkstate = #{record.checkstate,jdbcType=INTEGER},
+			</if>
+			<if test="record.age != null">
+				age = #{record.age,jdbcType=INTEGER},
+			</if>
+		</set>
+		<if test="_parameter != null">
+			<include refid="Update_By_Example_Where_Clause" />
+		</if>
+	</update>
+	<update id="updateByExample" parameterType="map">
+		update users
+		set Id = #{record.id,jdbcType=INTEGER},
+		Username = #{record.username,jdbcType=VARCHAR},
+		Realname = #{record.realname,jdbcType=VARCHAR},
+		PASSWORD = #{record.password,jdbcType=VARCHAR},
+		Gender = #{record.gender,jdbcType=CHAR},
+		userType = #{record.usertype,jdbcType=VARCHAR},
+		Address = #{record.address,jdbcType=VARCHAR},
+		Identity = #{record.identity,jdbcType=VARCHAR},
+		Tel = #{record.tel,jdbcType=VARCHAR},
+		Position = #{record.position,jdbcType=VARCHAR},
+		nation = #{record.nation,jdbcType=VARCHAR},
+		drivinfo = #{record.drivinfo,jdbcType=VARCHAR},
+		drivage = #{record.drivage,jdbcType=VARCHAR},
+		idimag = #{record.idimag,jdbcType=VARCHAR},
+		drivimag = #{record.drivimag,jdbcType=VARCHAR},
+		checkstate = #{record.checkstate,jdbcType=INTEGER},
+		age = #{record.age,jdbcType=INTEGER}
+		<if test="_parameter != null">
+			<include refid="Update_By_Example_Where_Clause" />
+		</if>
+	</update>
+	<update id="updateByPrimaryKeySelective" parameterType="com.pojo.Users">
+		update users
+		<set>
+			<if test="username != null">
+				Username = #{username,jdbcType=VARCHAR},
+			</if>
+			<if test="realname != null">
+				Realname = #{realname,jdbcType=VARCHAR},
+			</if>
+			<if test="password != null">
+				PASSWORD = #{password,jdbcType=VARCHAR},
+			</if>
+			<if test="gender != null">
+				Gender = #{gender,jdbcType=CHAR},
+			</if>
+			<if test="usertype != null">
+				userType = #{usertype,jdbcType=VARCHAR},
+			</if>
+			<if test="address != null">
+				Address = #{address,jdbcType=VARCHAR},
+			</if>
+			<if test="identity != null">
+				Identity = #{identity,jdbcType=VARCHAR},
+			</if>
+			<if test="tel != null">
+				Tel = #{tel,jdbcType=VARCHAR},
+			</if>
+			<if test="position != null">
+				Position = #{position,jdbcType=VARCHAR},
+			</if>
+			<if test="nation != null">
+				nation = #{nation,jdbcType=VARCHAR},
+			</if>
+			<if test="drivinfo != null">
+				drivinfo = #{drivinfo,jdbcType=VARCHAR},
+			</if>
+			<if test="drivage != null">
+				drivage = #{drivage,jdbcType=VARCHAR},
+			</if>
+			<if test="idimag != null">
+				idimag = #{idimag,jdbcType=VARCHAR},
+			</if>
+			<if test="drivimag != null">
+				drivimag = #{drivimag,jdbcType=VARCHAR},
+			</if>
+			<if test="checkstate != null">
+				checkstate = #{checkstate,jdbcType=INTEGER},
+			</if>
+			<if test="age != null">
+				age = #{age,jdbcType=INTEGER},
+			</if>
+		</set>
+		where Id = #{id,jdbcType=INTEGER}
+	</update>
+	<update id="updateByPrimaryKey" parameterType="com.pojo.Users">
+		update users
+		set Username = #{username,jdbcType=VARCHAR},
+		Realname = #{realname,jdbcType=VARCHAR},
+		PASSWORD = #{password,jdbcType=VARCHAR},
+		Gender = #{gender,jdbcType=CHAR},
+		userType = #{usertype,jdbcType=VARCHAR},
+		Address = #{address,jdbcType=VARCHAR},
+		Identity = #{identity,jdbcType=VARCHAR},
+		Tel = #{tel,jdbcType=VARCHAR},
+		Position = #{position,jdbcType=VARCHAR},
+		nation = #{nation,jdbcType=VARCHAR},
+		drivinfo = #{drivinfo,jdbcType=VARCHAR},
+		drivage = #{drivage,jdbcType=VARCHAR},
+		idimag = #{idimag,jdbcType=VARCHAR},
+		drivimag = #{drivimag,jdbcType=VARCHAR},
+		checkstate = #{checkstate,jdbcType=INTEGER},
+		age = #{age,jdbcType=INTEGER}
+		where Id = #{id,jdbcType=INTEGER}
+	</update>
+	<select id="selectUserLogin" parameterType="com.pojo.Users"
+		resultType="com.pojo.Users">
+		select * from users where Username=#{username} and PASSWORD=#{password}
+	</select>
+	<insert id="adduser" parameterType="com.pojo.Users">
+		insert into users (Username, Realname,
+		PASSWORD, Gender, userType,
+		Address, Identity, Tel,
+		Position, nation, drivinfo,
+		drivage, idimag, drivimag,
+		checkstate, age)
+		values
+		(#{username},#{realname},#{password},#{gender},"普通用户",#{address},
+		#{identity}, #{tel},#{position}, #{nation}, #{drivinfo},#{drivage}, #{idimag},
+		#{drivimag},"0", #{age})
+	</insert>
+
+	<select id="selectAll" resultType="java.util.Map">
+		select * from users
+	</select>
+	
+	<select id="userscount" resultType="java.lang.Integer">
+		select count(*) from users
+	</select>
+	<select id="findByPage" resultType="java.util.Map">
+		select * from users limit #{before},#{after}
+	</select>
+	
+	<delete id="delById" parameterType="com.pojo.Users">
+		delete from users
+		where Id = #{id}
+	</delete>
+	<select id="finduncheck" resultType="java.util.Map">
+		select * from users where checkstate="0" limit #{before},#{after} 
+	</select>
+	<select id="findbyid" resultType="com.pojo.Users">
+		select *from users where Id=#{id}
+	</select>
+	
+	<update id="agree" >
+		UPDATE users SET checkstate="1" WHERE id=#{id}
+	</update>
+	<update id="updateuser" >
+		update users SET Username=#{username},Realname=#{realname},PASSWORD=#{password},Address=#{address},Identity=#{identity},Tel=#{tel},Position=#{position},nation=#{nation},age=#{age},drivage=#{drivage},Gender=#{gender} WHERE Id=#{id}
+	</update>
+	
+	<select id="findOrderByuserId" resultType="java.util.Map">
+		select *from orders where userid=#{userid} 
+	</select>
+	
+	<delete id="delorder" >
+		delete from orders
+		where userid = #{userid}
+	</delete>
+	
+	<select id="findCarByUserid" resultType="java.util.Map">
+		SELECT u.Id,u.Realname,c.CarType,c.Description,c.CarNumber,c.Color,c.Price,c.buy_time,o.stats,c.insurainfo,c.weihuinfo,c.weizhanginfo,o.price FROM users u,orders o,cars c WHERE o.userid=u.Id AND o.carid=c.Id AND u.Id=#{Id}; 
+	</select>
+	
+	<select id="checkstats" resultType="java.util.Map">
+	SELECT *FROM  users WHERE Id=#{id}
+	</select>
+	
+</mapper>
